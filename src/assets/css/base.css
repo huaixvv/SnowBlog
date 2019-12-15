@@ -1,0 +1,47 @@
+@import "./reset.css";
+
+:root{
+  --color-shadow: #f0f0f0;
+  --text-color-active: #222;
+  --text-color-H: #222;
+  --text-color-unactive: #444;
+  --text-color-gray: #555;
+  --text-color-light:#666;
+}
+
+/* 博客侧边栏自定义样式 */
+.cu-class{
+  background-color: #e0232300 !important;
+  margin-top: 90px;
+  box-shadow: none !important;
+  border-radius: 5px;
+}
+
+:focus {
+  outline: none;
+}
+
+.title-btn .el-button--mini {
+  padding: 5px 10px !important;
+  font-weight: 400 !important;
+}
+
+.el-drawer__wrapper {
+  top: 64px !important;
+  left: 70% !important;
+  
+}
+
+/* markDown 自定义样式 */
+.markdown-body h1, 
+.markdown-body h2, 
+.markdown-body h3, 
+.markdown-body h4,
+.markdown-body h5, 
+.markdown-body h6{
+  color: var(--text-color-H) !important;
+}
+
+.markdown-body{
+  font-size: 14px !important;
+}
