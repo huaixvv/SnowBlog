@@ -4,9 +4,11 @@
   --color-shadow: #f0f0f0;
   --text-color-active: #222;
   --text-color-H: #222;
+  --text-color-auto: #676767;
   --text-color-unactive: #444;
   --text-color-gray: #555;
   --text-color-light:#666;
+  --text-color-Hlight:rgb(136, 136, 136);
 }
 
 /* 博客侧边栏自定义样式 */
@@ -45,3 +47,24 @@
 .markdown-body{
   font-size: 14px !important;
 }
+
+
+/* 滚动条样式 */
+*::-webkit-scrollbar{
+  /*滚动条整体样式*/
+  width : 3px;  /*高宽分别对应横竖滚动条的尺寸*/
+  height: 1px;
+}
+
+*::-webkit-scrollbar-thumb {
+  /*滚动条里面小方块*/
+  border-radius: 10px;
+  box-shadow   : inset 0 0 5px rgba(0, 0, 0, 0.2);
+  background   : #5353530c;
+  }
+*::-webkit-scrollbar-track {
+  /*滚动条里面轨道*/
+  box-shadow   : inset 0 0 5px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  background   : #ededed10;
+  }

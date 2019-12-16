@@ -16,12 +16,6 @@
 
   export default {
     name: 'NavBarTitle',
-    props: {
-      // titles: {
-      //   type: Array,
-      //   default: ['首页','博客','音乐','设置']
-      // }
-    },
     data () {
       return {
         isActive: false,
@@ -38,12 +32,14 @@
     methods: {
       titleClick(index){
         if (this.titles[index] === '音乐') {
-          console.log('yinyue');
           this.$store.commit('musicTitles')
+          this.$router.push('/search')
         }else if (this.titles[index] === '去博客') {
           this.$store.commit('blogTitles')
+          this.$router.push('/blog')
+        }else{
+          this.$router.push(this.path[index])
         }
-        this.$router.push(this.path[index])
       }
     },
     components: {

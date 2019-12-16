@@ -1,8 +1,9 @@
 <template>
   <div>
-    <!-- <div class="main-nav"><main-nav></main-nav></div> -->
-    <blog-item></blog-item>
 
+    <div class="blog-item-list">
+      <blog-item></blog-item>
+    </div>
     <transition name="el-zoom-in-center">
       <div class="cataBtn" v-show="!drawer">
         <el-button type="info" icon="el-icon-s-fold" size="mini" @click="drawer = true" circle/>
@@ -88,5 +89,14 @@
 
  .closeBtn{
    margin-top: 3px
+ }
+
+ .blog-item-list{
+   height: 600px;
+   width: 99%;
+   overflow: hidden;
+   text-overflow:ellipsis;
+   white-space: nowrap;
+   overflow-y: scroll;
  }
 </style>

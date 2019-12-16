@@ -1,20 +1,17 @@
 <template>
   <div>
-    music
+    paihang
   </div>
 </template>
 
 <script>
-  import MainNav from 'components/common/navbar/MainNav';
-
   export default {
-    name: 'Music',
+    name: 'Chart',
     data () {
       return {
       }
     },
     components: {
-      MainNav
     }
   }
 </script>

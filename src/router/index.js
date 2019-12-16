@@ -4,9 +4,10 @@ import VueRouter from 'vue-router';
 const Home = () => import('views/home/Home')
 const Blog = () => import('views/blog/Blog')
 const Setting = () => import('views/setting/Setting')
-const Music = () => import('views/music/Music')
 const Article = () => import('views/article/Article')
-
+const Search = () => import('views/music/Search')
+const Chart = () => import('views/music/Chart')
+const Album = () => import('views/music/Album')
 
 Vue.use(VueRouter)
 
@@ -28,12 +29,20 @@ const routes = [
     component: Setting
   },
   {
-    path: '/music',
-    component: Music
-  },
-  {
     path: '/article',
     component: Article
+  },
+  {
+    path: '/Search',
+    component: Search
+  },
+  {
+    path: '/chart',
+    component: Chart
+  },
+  {
+    path: '/album',
+    component: Album
   }
 ]
 
