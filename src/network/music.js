@@ -26,8 +26,4 @@ export function getSongUrl(id) {
   })
 }
 
-export function playSong(url) {
-  return request({
-    url: url,
-  })
-}
+

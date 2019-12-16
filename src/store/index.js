@@ -7,8 +7,9 @@ const store = new Vuex.Store({
   state: {
     navTitles: ['首页', '博客', '音乐', '设置'],
     paths: ['/home', '/blog', '/music', '/setting'],
-    mp3url: '',
-    songs:[]
+    // mp3url: '',
+    songs: [],
+    currentSongIndex: -1
     
   },
   mutations: {
@@ -22,6 +23,9 @@ const store = new Vuex.Store({
     },
     initSongs(state,songs) {
       state.songs = songs
+    },
+    changeCurrentSongIndex(state, index) { 
+      state.currentSongIndex = index
     }
   }
 })

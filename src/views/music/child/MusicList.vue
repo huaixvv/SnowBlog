@@ -1,6 +1,6 @@
 <template>
     <div class="music-list">
-      <div class="music-item" v-for="(song, index) in songs" :key="index" :class="{'active': index === currentSongIndex}">
+      <div class="music-item" v-for="(song, index) in songs" :key="index" :class="{'active': index === $store.state.currentSongIndex}">
         <div class="music-name">{{song.name}}</div>
         <div class="act-btn">
           <span @click="play(song.id, index)">播放</span>
@@ -21,7 +21,7 @@
 <script>
   import { bus } from "common/bus";
   import { MillisecondToTime } from "common/formatTime";
-  import { getSongUrl, playSong } from "network/music";
+  // import { getSongUrl, playSong } from "network/music";
 
   export default {
     name: 'MusicList',
@@ -29,24 +29,25 @@
       return {
         songs: [],     //歌曲列表
         songCount: 0,   //歌曲总数
-        // mp3url:'',
-        currentSongIndex: -1,
-        songidIndex: []    //用来记录 歌曲id所对应的 组件 index
+        songidIndex: [] ,   //用来记录 歌曲id所对应的 组件 index
       }
     },
     mounted(){
       bus.$on('searchData', res => {
-        this.songs = res.songs
+        this.$store.commit('changeCurrentSongIndex', -1)
+        this.$store.commit('initSongs', res.songs)
+        this.songs = this.$store.state.songs
         this.songCount = res.songCount
       })
       
      
     },
     methods:{
-      play(songid, index){
-        console.log(`${songid} == ${index}`);
-        this.$emit('play',[songid, index, this.currentSongIndex])
-        console.log(`zhixingle`);
+      play(songid,index){
+        this.$store.commit('changeCurrentSongIndex', index)
+        // this.currentSongIndex = index
+        bus.$emit('palyClick', songid)
+        console.log(this.$store.state.currentSongIndex+ "-----------------");
       }
     },
     
@@ -66,7 +67,7 @@
       },
       duration(){
         return this.songs.map(function(song){
-          console.log(song.duration);
+          // console.log(song.duration);
           return MillisecondToTime(song.duration).substr(3)
         })    
       }

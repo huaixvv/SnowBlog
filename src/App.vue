@@ -6,7 +6,7 @@
       <router-view/>
     </keep-alive>
 
-    <audio :src="mp3url" ref="myaudio" @ended="ended" @play="playmusic"></audio>
+    <audio :src="mp3url" ref="myaudio" @ended="ended"></audio>
 
   </div>
 
@@ -15,32 +15,51 @@
 
 <script>
 import MainNav from 'components/common/navbar/MainNav';
+import { bus } from "common/bus";
+import { getSongUrl, playSong } from "network/music";
 
 
 export default {
   name: 'app',
   data(){
     return{
+      songid:'',
+      mp3url: ''
+      
+    }
+  },
+  mounted(){
+    this.$refs.myaudio.loop = false
+    bus.$on('palyClick', res=>{
+      this.songid = res
+      console.log(`${this.songid} --- `);
+    })
+  },
+  watch: {
+    songid(){
+      console.log(`bianhuale  ${this.songid}`);
+      this.playmusic(this.songid, this.$store.state.currentSongIndex)
     }
   },
   computed:{
-    mp3url(){
-      return this.$store.state.mp3url
+    songs(){
+      return this.$store.state.songs
     }
   },
   methods:{
     playmusic(songid, index, self=this) {
         let _self = self
-        _self.$refs.myaudio.loop = false
-        console.log(48);
-        console.log(_self);
+        // console.log(48);
+        // console.log(_self);
+        // console.log(songid);
+        console.log(`debug`);
         getSongUrl(songid).then(res => {
           if(res.data.data[0].url){
-            _self.currentSongIndex = index
+            // _self.$store.state.currentSongIndex = index
             _self.mp3url = res.data.data[0].url
             setTimeout(() => {
               console.log('timeout');
-              _self.$refs.myaudio.play()
+             _self.$refs.myaudio.play()
             }, 500);
           }else{
             _self.$notify({
@@ -49,6 +68,7 @@ export default {
               offset: 80,
               type:'error'
             });
+
           }
           console.log(_self.mp3url);
           // console.log(res.data.data[0].url);
@@ -57,11 +77,11 @@ export default {
 
       ended(){ 
         let _self = this
-        console.log(_self.songs[++this.currentSongIndex].id + "```" + _self.currentSongIndex);
-        console.log(72);
-        console.log(_self);
-        _self.$options.methods.playmusic(_self.songs[this.currentSongIndex].id, _self.currentSongIndex, _self)
+        this.$options.methods.playmusic(this.songs[++this.$store.state.currentSongIndex].id, this.$store.state.currentSongIndex, this)
       }
+  },
+  beforeDestroy(){
+    console.log(`destroy`);
   },
   components: {
     MainNav
