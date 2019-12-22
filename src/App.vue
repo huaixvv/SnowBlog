@@ -2,7 +2,7 @@
   <div id="app">
     <main-nav class="nav-bar"></main-nav>
 
-    <keep-alive>
+    <keep-alive exclude="Detail">
       <router-view/>
     </keep-alive>
 
@@ -15,7 +15,6 @@
 
 <script>
 import MainNav from 'components/common/navbar/MainNav';
-import { bus } from "common/bus";
 import { getSongUrl, playSong } from "network/music";
 
 
@@ -30,9 +29,9 @@ export default {
   },
   mounted(){
     this.$refs.myaudio.loop = false
-    bus.$on('palyClick', res=>{
+    this.$bus.$on('palyClick', res=>{
       this.songid = res
-      console.log(`${this.songid} --- `);
+      console.log(`songid == ${this.songid}`);
     })
   },
   watch: {
@@ -49,16 +48,11 @@ export default {
   methods:{
     playmusic(songid, index, self=this) {
         let _self = self
-        // console.log(48);
-        // console.log(_self);
-        // console.log(songid);
-        console.log(`debug`);
         getSongUrl(songid).then(res => {
           if(res.data.data[0].url){
             // _self.$store.state.currentSongIndex = index
             _self.mp3url = res.data.data[0].url
             setTimeout(() => {
-              console.log('timeout');
              _self.$refs.myaudio.play()
             }, 500);
           }else{
@@ -71,18 +65,16 @@ export default {
 
           }
           console.log(_self.mp3url);
-          // console.log(res.data.data[0].url);
         })
       },
 
       ended(){ 
         let _self = this
-        this.$options.methods.playmusic(this.songs[++this.$store.state.currentSongIndex].id, this.$store.state.currentSongIndex, this)
+        console.log(`state 中的 ---》${this.songs}`);
+        this.$options.methods.playmusic(this.songs[++this.$store.state.currentSongIndex].id, this.$store.state.currentSongIndex, _self)
       }
   },
-  beforeDestroy(){
-    console.log(`destroy`);
-  },
+ 
   components: {
     MainNav
   }

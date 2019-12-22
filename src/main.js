@@ -11,6 +11,9 @@ import 'mavon-editor/dist/css/index.css'
 
 Vue.config.productionTip = false
 
+//定义事件总线
+Vue.prototype.$bus = new Vue()
+
 Vue.use(ElementUI)
 Vue.use(mavonEditor)
 

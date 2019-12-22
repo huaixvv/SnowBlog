@@ -4,11 +4,11 @@
         <div class="music-name">{{song.name}}</div>
         <div class="act-btn">
           <span @click="play(song.id, index)">播放</span>
-          <span><a>下载</a></span>
+          <span @click="download(song.id, song.name)">下载</span>
         </div>
-        <div class="music-artists">{{artists[index]}}</div>
-        <div class="music-album">{{album[index].name}}</div>
-        <div class="music-time">{{duration[index]}}</div>
+        <div class="music-artists">{{song.artists}}</div>
+        <div class="music-album">{{song.album}}</div>
+        <div class="music-time">{{song.duration}}</div>
       </div>  
 
     <!-- <keep-alive>
@@ -19,58 +19,87 @@
 </template>
 
 <script>
-  import { bus } from "common/bus";
   import { MillisecondToTime } from "common/formatTime";
-  // import { getSongUrl, playSong } from "network/music";
+  import { getSongUrl } from "network/music";
+  import  axios  from "axios";
+
 
   export default {
     name: 'MusicList',
     data () {
       return {
-        songs: [],     //歌曲列表
-        songCount: 0,   //歌曲总数
         songidIndex: [] ,   //用来记录 歌曲id所对应的 组件 index
+        downloadUrl:'',
+      }
+    },
+    props: {
+      songs: {
+        type: Array,
+        default(){
+          return []
+        }
       }
     },
     mounted(){
-      bus.$on('searchData', res => {
-        this.$store.commit('changeCurrentSongIndex', -1)
-        this.$store.commit('initSongs', res.songs)
-        this.songs = this.$store.state.songs
-        this.songCount = res.songCount
-      })
-      
-     
     },
     methods:{
       play(songid,index){
         this.$store.commit('changeCurrentSongIndex', index)
-        // this.currentSongIndex = index
-        bus.$emit('palyClick', songid)
+        this.$bus.$emit('palyClick', songid)
         console.log(this.$store.state.currentSongIndex+ "-----------------");
+      },
+
+      /**
+       * 下载音乐
+       */
+      download(songid,fileName){
+        getSongUrl(songid).then(res => {
+          if(res.data.data[0].url){
+            this.downloadUrl = res.data.data[0].url
+            console.log(this.downloadUrl);
+            axios({
+              method: 'get',
+              url: this.downloadUrl,
+              responseType: 'blob'
+            }).then(res => {
+              if (!res) {
+                console.log(`数据为空`);
+              }
+                console.log(res);
+                download(res.data, fileName, 'audio/mpeg')
+            })
+          }else{
+            this.$notify({
+              title: 'ヘ(>_<ヘ)',
+              message: 'Sorry，没能帮您找到这首歌~~',
+              offset: 80,
+              type:'error'
+            });
+          }
+        })
       }
     },
     
     computed:{
-      artists(){
-        return this.songs.map(function(song){
-          // console.log(song.artists);
-          return song.artists.map(function(artist,index){
-            return artist.name
-          }).join('/')
-        })
-      },
-      album(){
-        return this.songs.map(function(song){
-          return song.album
-        })
-      },
-      duration(){
-        return this.songs.map(function(song){
-          // console.log(song.duration);
-          return MillisecondToTime(song.duration).substr(3)
-        })    
-      }
+      // artists(){
+      //   return this.songs.map(function(song){
+      //     // console.log(song.artists);
+      //     return song.artists.map(function(artist,index){
+      //       return artist.name
+      //     }).join('/')
+      //   })
+      // },
+      // album(){
+      //   return this.songs.map(function(song){
+      //       return song.album.name
+      //   })
+      // },
+      // duration(){
+      //   return this.songs.map(function(song){
+      //     // console.log(song.duration);
+      //     return MillisecondToTime(song.duration)
+      //   })    
+      // }
     },
     components: {
     }
@@ -122,7 +151,7 @@
  }
 
  .music-time{
-   padding-right: 20px !important;
+   flex: 45px 0 0 ;
    padding-left: 80px
  }
 
@@ -130,7 +159,7 @@
    visibility: hidden;
  }
  .act-btn span:hover{
-   color: rgb(44, 79, 196)
+   color: var(--text-color-hover)
  }
  .music-item:hover .act-btn{
    visibility: visible;

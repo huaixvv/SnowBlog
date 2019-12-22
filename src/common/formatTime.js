@@ -23,5 +23,6 @@ export function MillisecondToTime(msd) {
           time = '00:00:' + d;
       }
   }
+    // console.log(typeof(time));
   return time;
 };

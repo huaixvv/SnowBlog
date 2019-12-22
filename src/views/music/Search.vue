@@ -5,13 +5,10 @@
              autofocus="autofocus"
              @keyup.enter="search"
              v-model="inputValue">
-      <!-- <div class="music-contain" v-show="isEnter">
-        <music-list class="list"></music-list>
-      </div> -->
 
       <transition name="el-zoom-in-center">
         <div v-show="isEnter" class="transition-box music-contain">
-          <music-list class="list" ref="musicList"></music-list>
+          <music-list class="list" ref="musicList" :songs="songs"></music-list>
         </div>
       </transition>
 
@@ -21,28 +18,55 @@
 <script>
   import MusicList from './child/MusicList';
   import { searchByName } from "network/music";
-  import { bus } from "common/bus";
+  import { MillisecondToTime } from "common/formatTime";
 
   export default {
     name: 'Search',
+    
     data () {
       return {
         inputValue:'',
         isEnter: false,
-        offset: 1
+        offset: 1,
+        songs: [],
+        
       }
     },
     methods:{
+
       search(){
         if (this.inputValue.length !== 0) {
           this.$refs.musicList.currentSongIndex = -1
           this.isEnter = true;
-          searchByName(this.inputValue, this.offset++).then(res => {
-          bus.$emit('searchData', res.data.result)
+          searchByName(this.inputValue, this.offset++).then(res => {  
+            const songdatas = res.data.result.songs;
+            for (let songdata of songdatas ) {
+              // let song = JSON.parse(JSON.stringify(s))    //深拷贝
+              let song = {}    
+              song.name =songdata.name
+              song.id =songdata.id
+              song.artists =songdata.artists.map(function(artist,index){
+                            return artist.name
+                            }).join('/')
+              song.album =songdata.album.name
+              song.duration = MillisecondToTime(songdata.duration).toString().substr(3)
+              this.songs.push(song)
+            }
+            this.$store.commit('initSongs',this.songs)
+            console.log(this.songs);
           })
         }
-        
       }
+
+      // search(){
+      //   if (this.inputValue.length !== 0) {
+      //     this.$refs.musicList.currentSongIndex = -1
+      //     this.isEnter = true;
+      //     searchByName(this.inputValue, this.offset++).then(res => {
+      //     bus.$emit('searchData', res.data.result)
+      //     })
+      //   }
+      // }
     },
     components: {
       MusicList
@@ -51,6 +75,7 @@
 </script>
 
 <style scoped>
+
  .search-music{
    margin-top: 64px;
    /* background-color: red; */
@@ -103,12 +128,5 @@
       overflow: hidden;
       overflow-y: scroll;
     }
-    .loading{
-      position: fixed;
-      top: 170px;
-      letter-spacing: 2px;
-      color: var(--text-color-light);
-      font-weight: 600;
-      font-size: 15px;
-    }
+ 
 </style>

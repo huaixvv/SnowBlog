@@ -68,12 +68,16 @@
  }
   .title-text{
     padding: 13px 0;
-
   }
+  
+  .nav-title div:hover .title-text{
+    color: var(--text-color-hover)
+    }
   .active{
-    border-bottom: 2px green solid ;
+    border-bottom: 2px var(--text-color-hover) solid ;
     box-sizing: border-box;
     margin-top: 2px;
-    color: var(--text-color-active);
+    color: var(--text-color-hover)
+    /* color: var(--text-color-active); */
   }
 </style>

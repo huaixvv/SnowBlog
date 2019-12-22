@@ -1,17 +1,15 @@
 <template>
   <div>
-
     <div class="blog-item-list">
       <blog-item></blog-item>
     </div>
+
     <transition name="el-zoom-in-center">
       <div class="cataBtn" v-show="!drawer">
         <el-button type="info" icon="el-icon-s-fold" size="mini" @click="drawer = true" circle/>
       </div>
     </transition>
-
-   
-
+    
   <div class="cata-drawer">
     <el-drawer
       title="我是标题"
