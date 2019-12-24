@@ -44,6 +44,7 @@
   justify-content: space-between
 }
 .item{
+  cursor:pointer;
   margin-top: 20px;
   font-size: 14px;
   font-weight: 500;

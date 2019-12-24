@@ -35,11 +35,13 @@
     methods:{
 
       search(){
+        this.songs = []
         if (this.inputValue.length !== 0) {
           this.$refs.musicList.currentSongIndex = -1
           this.isEnter = true;
           searchByName(this.inputValue, this.offset++).then(res => {  
             const songdatas = res.data.result.songs;
+            console.log(songdatas);
             for (let songdata of songdatas ) {
               // let song = JSON.parse(JSON.stringify(s))    //深拷贝
               let song = {}    
@@ -48,12 +50,13 @@
               song.artists =songdata.artists.map(function(artist,index){
                             return artist.name
                             }).join('/')
-              song.album =songdata.album.name
+              song.albumName =songdata.album.name
+              song.albumId = songdata.album.id
               song.duration = MillisecondToTime(songdata.duration).toString().substr(3)
               this.songs.push(song)
             }
             this.$store.commit('initSongs',this.songs)
-            console.log(this.songs);
+            // console.log(this.songs);
           })
         }
       }

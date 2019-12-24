@@ -53,3 +53,13 @@ export function getPlayDetail(id) {
     }
   })
 }
+
+//参数albumid 获取专辑详情
+export function getAlbumDetail(albumId) {
+  return request({
+    url: '/album',
+    params: {
+      id : albumId
+    }
+  })
+}

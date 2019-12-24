@@ -3,11 +3,11 @@
       <div class="music-item" v-for="(song, index) in songs" :key="index" :class="{'active': index === $store.state.currentSongIndex}">
         <div class="music-name">{{song.name}}</div>
         <div class="act-btn">
-          <span @click="play(song.id, index)">播放</span>
+          <span @click="play(song, index)">播放</span>
           <span @click="download(song.id, song.name)">下载</span>
         </div>
         <div class="music-artists">{{song.artists}}</div>
-        <div class="music-album">{{song.album}}</div>
+        <div class="music-album">{{song.albumName}}</div>
         <div class="music-time">{{song.duration}}</div>
       </div>  
 
@@ -43,10 +43,9 @@
     mounted(){
     },
     methods:{
-      play(songid,index){
-        this.$store.commit('changeCurrentSongIndex', index)
-        this.$bus.$emit('palyClick', songid)
-        console.log(this.$store.state.currentSongIndex+ "-----------------");
+      play(song,index){
+          this.$store.commit('changeCurrentSongIndex', index)
+          this.$bus.$emit('palyClick', song)
       },
 
       /**

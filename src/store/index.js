@@ -12,7 +12,12 @@ const store = new Vuex.Store({
     // mp3url: '',
     songs: [],
     currentSongIndex: -1,
-    playlist: JSON.parse(sessionStorage.getItem('playlist')) || ""
+    playlist: JSON.parse(sessionStorage.getItem('playlist')) || "",
+    playerData: {
+      songName: '',
+      artists: '',
+      albumImg: 'http://p2.music.126.net/VXwH8mdVe2m4E872XL5Ukg==/109951164575834507.jpg'
+    }
     
   },
   mutations: {
@@ -21,10 +26,10 @@ const store = new Vuex.Store({
       state.paths = ['/home', '/blog', '/music', '/setting'] 
     },
     musicTitles(state) { 
-      state.navTitles = ['去博客', '搜索', '排行', '专辑',]
+      state.navTitles = ['去博客', '搜索', '排行', '歌单',]
       state.paths = ['/blog', '/search', '/rank', '/album']
     },
-    initSongs(state,songs) {
+    initSongs(state, songs) {
       state.songs = songs
     },
     pushSongs(state, songs) {
@@ -37,7 +42,13 @@ const store = new Vuex.Store({
       sessionStorage.removeItem('playlist')
       sessionStorage.setItem('playlist', playlist)
       state.playlist = JSON.parse(sessionStorage.getItem('playlist'))
+    },
+    changePlayerData(state, playerdata) {
+      state.playerData.songName = playerdata.albumName
+      state.playerData.artists = playerdata.artists
+      state.playerData.albumImg = playerdata.picUrl
     }
+
   }
 })
 
