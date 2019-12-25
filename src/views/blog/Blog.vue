@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="blog-item-list">
-      <blog-item></blog-item>
+      <blog-item :blogs="blogs"></blog-item>
     </div>
 
     <transition name="el-zoom-in-center">
@@ -41,19 +41,29 @@
   import MainNav from 'components/common/navbar/MainNav';
   import BlogItem from './BlogItem';
   import CataTitle from './CataTitle';
-
+  import { getAllBlog } from "network/blog";
   export default {
     name: 'Blog',
     data () {
       return {
         drawer: true,
+        blogs:[]
       }
     },
     methods: {
       open(){
         console.log(open);
+      },
     },
-  },
+    created(){
+      getAllBlog().then(res => {
+        this.blogs = res.data.data
+        // this.blogs.map(function(blog,index){
+        //   return blog
+        // })
+        console.log(this.blogs);
+      })
+    },
     components: {
       MainNav,
       BlogItem,

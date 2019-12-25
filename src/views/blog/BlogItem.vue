@@ -1,8 +1,8 @@
 <template>
   <div class="blog-content">
-    <div class="blog-item" v-for="i in 9" :key="i">
-      <h3 class="title" @click="toarticle">前端模块化</h3>
-      <span class="el-icon-date">2019-12-08</span>
+    <div class="blog-item" v-for="(blog,index) in blogs" :key="index">
+      <h3 class="title" @click="toArticle(blog.blogId)">{{blog.blogName}}</h3>
+      <span class="el-icon-date">{{blog.lastEditTime.substr(0,10)}}</span>
       <span class="el-icon-chat-line-square">12</span>
       <span class="el-icon-collection-tag">java</span>
     </div>
@@ -10,15 +10,24 @@
 </template>
 
 <script>
+
   export default {
     name: 'BlogItem',
+    props:{
+      blogs:{
+        type:Array,
+        default(){
+          return []
+        }
+      }
+    },
     data () {
       return {
       }
     },
     methods:{
-      toarticle(){
-        this.$router.push('/article')
+      toArticle(blogId){
+        this.$router.push(`/article/${blogId}`)
       }
     },
     components: {

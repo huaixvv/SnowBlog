@@ -30,7 +30,7 @@ const routes = [
     component: Setting
   },
   {
-    path: '/article',
+    path: '/article/:blogId',
     component: Article
   },
   {

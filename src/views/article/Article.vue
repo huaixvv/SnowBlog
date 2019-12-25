@@ -1,8 +1,8 @@
 <template>
   <div class="article">
       <div class="mark-down-view" v-show="true">
-          <div class="title">前端模块化</div>
-            <mavon-editor v-model="value"
+          <div class="title">{{blog.blogName}}</div>
+            <mavon-editor v-model="blog.blogContent"
                         :toolbarsFlag="false"
                         defaultOpen="preview"
                         :subfield="false"
@@ -11,7 +11,7 @@
                         />
             <div class="foot"> 
               <span> ---------------</span>
-              <span>最后编辑时间: 2019-12-08 20:33:33</span>
+              <span>最后编辑时间: {{blog.lastEditTime}}</span>
             </div>
             <div class="next-link el-icon-s-promotion"> <a href="">下一篇: JS面试题详解</a></div>         
           </div>   
@@ -21,16 +21,32 @@
 <script>
   import { get } from "./value";
   import { Base64 } from 'js-base64';
+  import { getBlogById } from "network/blog";
+
   export default {
     name: 'Article',
     data () {
       return {
-        value:''
+        blogId: 1,
+        blog:{},
       }
     },
     created(){
       this.value = Base64.decode(get())
-      console.log(Base64.decode(get()));
+    },
+    mounted(){
+      console.log(111);
+    },
+    activated: function(){
+      this.blog = {}
+      this.blogId = this.$route.params.blogId
+      getBlogById(this.blogId).then(res => {
+        this.blog = res.data.data
+        this.blog.lastEditTime = res.data.data.lastEditTime.toString().substr(0,10)
+        this.blog.createTime = res.data.data.createTime.toString().substr(0,10)
+        console.log(this.blog);
+        })
+
     },
     components: {
     }

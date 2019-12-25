@@ -2,7 +2,7 @@
   <div id="app">
     <main-nav class="nav-bar"></main-nav>
 
-    <keep-alive exclude="Detail">
+    <keep-alive exclude="Detail, Article, Blog">
       <router-view/>
     </keep-alive>
 

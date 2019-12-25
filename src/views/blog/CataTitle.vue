@@ -11,7 +11,7 @@
     name: 'CataTitle',
     data () {
       return {
-        catagory: ['全部','JavaScript','css','vue','webpack','java','ts','java','spring','面试','leetcode','nginx']
+        catagory: ['全部','JavaScript','css','vue','React','webpack','Java','TypeScript','MySql','面试','leetcode', '剑指offer','网络', 'Linux', '数据结构与算法']
       }
     },
     components: {
