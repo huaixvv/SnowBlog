@@ -22,14 +22,16 @@
           :style="bgImg"
          >
         <div class="player-icon">
-          <div class="last-song el-icon-caret-left"></div>
+          <div class="last-song el-icon-caret-left" 
+               @click="lastSong"></div>
           <div class="play-control el-icon-video-pause" 
-              v-show="isPlaying"
-              @click="pauseSong"></div>
+               v-show="isPlaying"
+               @click="pauseSong"></div>
           <div class="play-control el-icon-video-play" 
-              v-show="!isPlaying"
-              @click="playSong"></div>
-          <div class="next-song el-icon-caret-right"></div>
+               v-show="!isPlaying"
+               @click="playSong"></div>
+          <div class="next-song el-icon-caret-right"
+               @click="nextSong"></div>
         </div>
 
         <div class="song-desc">
@@ -60,6 +62,7 @@
     },
     mounted(){
       this.song = this.$store.state.playerData
+      // console.log();
     },
     watch:{
       song:{
@@ -76,13 +79,20 @@
     methods:{
       playSong(){
        this.isPlaying = !this.isPlaying
-       console.log(`播放了`);
+       this.$emit('playSong')
       },
       pauseSong(){
         this.isPlaying = !this.isPlaying
-        console.log(`暂停了`);
+        this.$emit('pauseSong')
+      },
+      nextSong(){
+        this.isPlaying = true
+        this.$emit('nextSong')
+      },
+      lastSong(){
+        this.isPlaying = true
+        this.$emit('lastSong')
       }
-      
     },
     components: {
     }

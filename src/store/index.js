@@ -44,7 +44,7 @@ const store = new Vuex.Store({
       state.playlist = JSON.parse(sessionStorage.getItem('playlist'))
     },
     changePlayerData(state, playerdata) {
-      state.playerData.songName = playerdata.albumName
+      state.playerData.songName = playerdata.name
       state.playerData.artists = playerdata.artists
       state.playerData.albumImg = playerdata.picUrl
     }

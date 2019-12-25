@@ -40,14 +40,18 @@
       getPlayDetail(this.playdesc.id).then(res => {
         const songslist = res.data.playlist.tracks
         for (let songdata of songslist) {
+          console.log(songdata);
           const song = {}
           song.id = songdata.id
           song.name = songdata.name
           song.artists = songdata.ar.map((artist,index) => artist.name).join('/')
           song.album = songdata.al.name
+          song.albumName =songdata.al.name
+          song.albumId = songdata.al.id
           song.duration = MillisecondToTime(songdata.dt).toString().substr(3)
           this.songs.push(song)
         }
+        this.$store.commit('initSongs',this.songs)
         // console.log(songslist);
       })
     },

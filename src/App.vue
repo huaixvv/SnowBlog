@@ -6,7 +6,11 @@
       <router-view/>
     </keep-alive>
 
-    <player class="player"/>
+    <player class="player" 
+            @playSong="playSong"
+            @pauseSong="pauseSong"
+            @nextSong="nextSong"
+            @lastSong="lastSong"/>
     <audio :src="mp3url" ref="myaudio" @ended="ended"></audio>
 
   </div>
@@ -34,7 +38,6 @@ export default {
     this.$bus.$on('palyClick', song=>{
       this.song = song
       this.songid = song.id
-      
     })
   },
   watch: {
@@ -49,14 +52,15 @@ export default {
   },
   methods:{
     playmusic(songid, albumid, index, self=this) {
-
+      // console.log(this.song);
       //解决this指向问题
       let _self = self
       //使用all发送请求
       Axios.all([ getAlbumDetail(albumid), getSongUrl(songid)]).then(
         Axios.spread((albumdata, res) => {
-          console.log(`歌单`);
-          console.log(_self.song);
+          // console.log(`歌单`);
+          // console.log(albumdata);
+          // console.log(_self.song);
           _self.song.picUrl = albumdata.data.album.picUrl
           _self.$store.commit('changePlayerData', _self.song)
 
@@ -76,8 +80,7 @@ export default {
           }
         })
       )
-
-
+      
        //获取专辑详情（拿到player背景图）
         // getAlbumDetail(albumid).then(albumdata => {
         //   console.log(`歌单`);
@@ -117,6 +120,30 @@ export default {
                                         _self)
         console.log(`ended`);
         console.log(this.song);
+     },
+     playSong(){
+       this.$refs.myaudio.play()
+     },
+     pauseSong(){
+       this.$refs.myaudio.pause()
+     },
+     nextSong(){
+       let _self = this
+        // console.log(`state 中的 ---》${this.songs}`);   
+        this.song = this.songs[++this.$store.state.currentSongIndex]
+        this.$options.methods.playmusic(this.songs[this.$store.state.currentSongIndex].id, 
+                                        this.songs[this.$store.state.currentSongIndex].albumId,
+                                        this.$store.state.currentSongIndex, 
+                                        _self)
+     },
+     lastSong(){
+       let _self = this
+        // console.log(`state 中的 ---》${this.songs}`);   
+        this.song = this.songs[--this.$store.state.currentSongIndex]
+        this.$options.methods.playmusic(this.songs[this.$store.state.currentSongIndex].id, 
+                                        this.songs[this.$store.state.currentSongIndex].albumId,
+                                        this.$store.state.currentSongIndex, 
+                                        _self)
      }
   },
  

@@ -65,6 +65,8 @@
           song.artists = songdata.ar.map(function(artist,index){
                                      return artist.name
                                      }).join('/')
+          song.albumName =songdata.al.name
+          song.albumId = songdata.al.id
           song.album = songdata.al.name
           song.duration = MillisecondToTime(songdata.dt).toString().substr(3)
           this.songs.push(song)
@@ -94,6 +96,8 @@
                                       return artist.name
                                       }).join('/')
             song.album = songdata.al.name
+            song.albumName =songdata.al.name
+            song.albumId = songdata.al.id
             song.duration = MillisecondToTime(songdata.dt).toString().substr(3)
             this.songs.push(song)
           }
