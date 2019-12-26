@@ -1,7 +1,9 @@
 <template>
   <div>
     <div class="blog-item-list">
-      <blog-item :blogs="blogs"></blog-item>
+      <blog-item :blogs="blogs" 
+                  v-infinite-scroll="loadBlog"
+      ></blog-item>
     </div>
 
     <transition name="el-zoom-in-center">
@@ -31,7 +33,7 @@
       </transition>
       
       <!--  分类 -->
-      <cata-title></cata-title>
+      <cata-title @cataClick="cataClick"></cata-title>
     </el-drawer>
    </div> 
   </div>
@@ -41,7 +43,7 @@
   import MainNav from 'components/common/navbar/MainNav';
   import BlogItem from './BlogItem';
   import CataTitle from './CataTitle';
-  import { getAllBlog } from "network/blog";
+  import { getAllBlog, getBlogListByCata } from "network/blog";
   export default {
     name: 'Blog',
     data () {
@@ -54,14 +56,28 @@
       open(){
         console.log(open);
       },
+      cataClick(index){
+        getBlogListByCata(index, 1).then(res => {
+          if (res.data.code === 40000) {
+            this.$message({
+              message: 'Sorry, 暂时还木有文章哦~去看看别的吧~~~',
+              center: true,
+              offset:90,
+            })
+          }else{
+            this.blogs = res.data.data.list
+          }
+        })
+      },
+      loadBlog(){
+        console.log(`jia zai blog`);
+      }
     },
     created(){
-      getAllBlog().then(res => {
-        this.blogs = res.data.data
-        // this.blogs.map(function(blog,index){
-        //   return blog
-        // })
-        console.log(this.blogs);
+      getAllBlog(1).then(res => {
+        console.log(res);
+        this.blogs = res.data.data.list
+        // console.log(this.blogs);
       })
     },
     components: {

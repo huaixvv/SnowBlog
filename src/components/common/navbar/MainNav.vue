@@ -1,6 +1,6 @@
 <template>
   <nav-bar>
-    <img slot="nav-logo" class="logo" src="~assets/img/logo3.png" alt="">
+    <img slot="nav-logo" class="logo" src="~assets/img/logo2.png" alt="">
     <div slot="nav-title" class="title">
       <nav-bar-title></nav-bar-title>
     </div>
@@ -30,8 +30,8 @@
 
 <style scoped>
  .logo{
-    width: 164px;
-    height: 40px;
+    width: 80px;
+    height: 53px;
  }
  
  .title{

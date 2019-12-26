@@ -13,7 +13,7 @@
               <span> ---------------</span>
               <span>最后编辑时间: {{blog.lastEditTime}}</span>
             </div>
-            <div class="next-link el-icon-s-promotion"> <a href="">下一篇: JS面试题详解</a></div>         
+            <div class="next-link el-icon-s-promotion"> <a href="https://github.com/Dusksnowing/SnowBlog">Github给我点个赞吧~~</a></div>         
           </div>   
   </div>  
 </template>

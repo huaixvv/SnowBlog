@@ -3,7 +3,7 @@
     <div class="item" v-for="(playlist,index) in playlists" 
                       :key="index"
                       @click="toDetail(playlist)">
-      <img :src="playlist.coverImgUrl" alt="">
+      <img v-lazy="playlist.coverImgUrl" alt="">
       <div class="text">{{playlist.name}}</div>
     </div>
   </div>
@@ -22,7 +22,9 @@
     },
     data () {
       return {
+        testlist:[]
       }
+      
     },
     methods:{
       toDetail(playlist){

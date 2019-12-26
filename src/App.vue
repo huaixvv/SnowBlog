@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <main-nav class="nav-bar"></main-nav>
+    <main-nav class="nav-bar" />
 
     <keep-alive exclude="Detail, Article, Blog">
       <router-view/>
@@ -11,6 +11,8 @@
             @pauseSong="pauseSong"
             @nextSong="nextSong"
             @lastSong="lastSong"/>
+
+    <!-- <foot /> -->
     <audio :src="mp3url" ref="myaudio" @ended="ended"></audio>
 
   </div>
@@ -22,6 +24,7 @@
 import MainNav from 'components/common/navbar/MainNav';
 import { getSongUrl, playSong, getAlbumDetail } from "network/music";
 import Player from 'components/common/player/Player'
+import Foot from 'components/common/foot/Foot';
 import Axios from 'axios';
 
 export default {
@@ -149,7 +152,8 @@ export default {
  
   components: {
     MainNav,
-    Player
+    Player,
+    Foot
   }
 }
 </script>

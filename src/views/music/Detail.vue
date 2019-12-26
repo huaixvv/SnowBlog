@@ -2,7 +2,7 @@
   <div class="detail">
     <div class="top-desc" @click="test">
       <div class="title-img">
-        <img :src="playdesc.coverImgUrl" alt="">
+        <img v-lazy="playdesc.coverImgUrl" alt="">
       </div>
       <div class="text">
         <div class="name">{{playdesc.name}}</div>

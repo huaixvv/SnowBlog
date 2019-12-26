@@ -1,6 +1,6 @@
 <template>
   <div class="cata-title">
-    <div class="title-btn" v-for="(item,index) in catagory" :key="index">
+    <div class="title-btn" v-for="(item,index) in catagory" :key="index" @click="cataClick(index)">
       <el-button size="mini" plain round>{{item}}</el-button>
     </div>
   </div>
@@ -12,6 +12,11 @@
     data () {
       return {
         catagory: ['全部','JavaScript','css','vue','React','webpack','Java','TypeScript','MySql','面试','leetcode', '剑指offer','网络', 'Linux', '数据结构与算法']
+      }
+    },
+    methods:{
+      cataClick(index){
+        this.$emit('cataClick', index)
       }
     },
     components: {

@@ -3,7 +3,7 @@ import VueRouter from 'vue-router';
 
 const Home = () => import('views/home/Home')
 const Blog = () => import('views/blog/Blog')
-const Setting = () => import('views/setting/Setting')
+const About = () => import('views/setting/About')
 const Article = () => import('views/article/Article')
 const Search = () => import('views/music/Search')
 const Rank = () => import('views/music/Rank')
@@ -26,8 +26,8 @@ const routes = [
     component: Blog
   },
   {
-    path: '/setting',
-    component: Setting
+    path: '/about',
+    component: About
   },
   {
     path: '/article/:blogId',

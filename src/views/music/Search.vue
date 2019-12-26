@@ -7,7 +7,10 @@
              v-model="inputValue">
 
       <transition name="el-zoom-in-center">
-        <div v-show="isEnter" class="transition-box music-contain">
+        <div v-show="isEnter" 
+             class="transition-box music-contain"  
+             v-infinite-scroll="loadSong"
+             infinite-scroll-distance=100>
           <music-list class="list" ref="musicList" :songs="songs"></music-list>
         </div>
       </transition>
@@ -29,19 +32,23 @@
         isEnter: false,
         offset: 1,
         songs: [],
+        box:{}
         
       }
     },
+    mounted(){
+      // this.scrollListener()
+      
+    },
     methods:{
-
       search(){
         this.songs = []
         if (this.inputValue.length !== 0) {
           this.$refs.musicList.currentSongIndex = -1
           this.isEnter = true;
-          searchByName(this.inputValue, this.offset++).then(res => {  
+          searchByName(this.inputValue, this.offset).then(res => {  
             const songdatas = res.data.result.songs;
-            console.log(songdatas);
+            // console.log(songdatas);
             for (let songdata of songdatas ) {
               // let song = JSON.parse(JSON.stringify(s))    //深拷贝
               let song = {}    
@@ -59,17 +66,31 @@
             // console.log(this.songs);
           })
         }
-      }
+      },
 
-      // search(){
-      //   if (this.inputValue.length !== 0) {
-      //     this.$refs.musicList.currentSongIndex = -1
-      //     this.isEnter = true;
-      //     searchByName(this.inputValue, this.offset++).then(res => {
-      //     bus.$emit('searchData', res.data.result)
-      //     })
-      //   }
-      // }
+
+      loadSong () {
+          searchByName(this.inputValue, this.offset++).then(res => {  
+            const songdatas = res.data.result.songs;
+            // console.log(songdatas);
+            for (let songdata of songdatas ) {
+              // let song = JSON.parse(JSON.stringify(s))    //深拷贝
+              let song = {}    
+              song.name =songdata.name
+              song.id =songdata.id
+              song.artists =songdata.artists.map(function(artist,index){
+                            return artist.name
+                            }).join('/')
+              song.albumName =songdata.album.name
+              song.albumId = songdata.album.id
+              song.duration = MillisecondToTime(songdata.duration).toString().substr(3)
+              this.songs.push(song)
+            }
+            this.$store.commit('initSongs',this.songs)
+            // console.log(this.songs);
+          })
+      },
+     
     },
     components: {
       MusicList

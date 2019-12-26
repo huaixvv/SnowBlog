@@ -17,7 +17,9 @@
     </div>
 
     <div class="list-contain">
-      <album-item :playlists="playlists"></album-item>
+      <album-item :playlists="playlists"
+                   v-infinite-scroll="loadPlaylist"
+                   infinite-scroll-distance=300></album-item>
     </div>
   </div>
 </template>
@@ -47,6 +49,11 @@
     },
     created(){
       getPlayList().then(res => {
+        // for (const playlist of res.data.playlists) {
+        //   setTimeout(() => {
+        //   this.playlists.push(playlist)
+        // }, 1000);
+        // }
         this.playlists = res.data.playlists
         console.log(res);
       })
@@ -77,19 +84,8 @@
         
       },
 
-      handleScroll(e){
-        //变量scrollTop是滚动条滚动时，距离顶部的距离
-        var scrollTop = e.target.scrollTop;
-        //变量windowHeight是可视区的高度
-        var windowHeight = e.target.clientHeight;
-        //变量scrollHeight是滚动条的总高度
-   		  var scrollHeight = e.target.scrollHeight;
-        //滚动条到底部的条件
-        if(scrollTop+windowHeight==(scrollHeight)){
-          console.log(`${scrollTop}---${windowHeight}---${scrollHeight}`);
-            //写后台加载数据的函数
-//          	console.log("距顶部"+scrollTop+"可视区高度"+windowHeight+"滚动条总高度"+scrollHeight);
-//             alert("距顶部"+scrollTop+"可视区高度"+windowHeight+"滚动条总高度"+scrollHeight);
+      loadPlaylist(){
+        console.log(`loadplaylist`);
         let catName = this.catslist[this.titleIndex][this.catsIndex]
         getPlayList(catName,this.offset+=30, 30).then(res => {
           for (const item of res.data.playlists) {
@@ -97,8 +93,18 @@
           }
           // console.log(this.playlists);
         })
-       }
-    }
+      },
+
+//       handleScroll(e){
+       
+//         if(scrollTop+windowHeight==(scrollHeight)){
+//           console.log(`${scrollTop}---${windowHeight}---${scrollHeight}`);
+//             //写后台加载数据的函数
+// //          	console.log("距顶部"+scrollTop+"可视区高度"+windowHeight+"滚动条总高度"+scrollHeight);
+// //             alert("距顶部"+scrollTop+"可视区高度"+windowHeight+"滚动条总高度"+scrollHeight);
+        
+//        }
+//     }
         
       
     },

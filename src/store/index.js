@@ -7,8 +7,8 @@ let sessionStorage = window.sessionStorage;
 
 const store = new Vuex.Store({
   state: {
-    navTitles: ['首页', '博客', '音乐', '设置'],
-    paths: ['/home', '/blog', '/music', '/setting'],
+    navTitles: ['首页', '博客', '音乐', '关于'],
+    paths: ['/home', '/blog', '/music', '/about'],
     // mp3url: '',
     songs: [],
     currentSongIndex: -1,

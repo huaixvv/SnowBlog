@@ -1,12 +1,14 @@
 <template>
   <div>
     <!-- <main-nav></main-nav> -->
-    shezhi
+      <porfile></porfile>
+
   </div>
 </template>
 
 <script>
   import MainNav from 'components/common/navbar/MainNav';
+  import Porfile from './Porfile';
 
   export default {
     name: 'Setting',
@@ -15,7 +17,8 @@
       }
     },
     components: {
-      MainNav
+      MainNav,
+      Porfile
     }
   }
 </script>
