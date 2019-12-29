@@ -16,14 +16,14 @@ const store = new Vuex.Store({
     playerData: {
       songName: '',
       artists: '',
-      albumImg: 'http://p2.music.126.net/VXwH8mdVe2m4E872XL5Ukg==/109951164575834507.jpg'
+      albumImg: 'http://p1.music.126.net/HsPZuZSpnfLtwx5MkPQVUw==/109951164563981166.jpg'
     }
     
   },
   mutations: {
     blogTitles(state) { 
-      state.navTitles = ['首页', '博客', '音乐', '设置']
-      state.paths = ['/home', '/blog', '/music', '/setting'] 
+      state.navTitles = ['首页', '博客', '音乐', '关于']
+      state.paths = ['/home', '/blog', '/music', '/about'] 
     },
     musicTitles(state) { 
       state.navTitles = ['去博客', '搜索', '排行', '歌单',]

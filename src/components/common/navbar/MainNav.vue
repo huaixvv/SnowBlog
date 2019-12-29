@@ -30,7 +30,7 @@
 
 <style scoped>
  .logo{
-    width: 80px;
+    width: 77px;
     height: 53px;
  }
  

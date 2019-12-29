@@ -4,7 +4,7 @@
     <h2>欢迎来到我的个人网站，</h2>
     <h2>自我介绍一下</h2>
     <h4>90后，目前应届生一枚，来自陕西，如你所见，前端菜鸟一枚，目前正在找工作中...</h4>
-    <h4>个人性格还算开朗，喜欢听歌，也爱摄影，这个博客已经在 <a href="https://github.com/Dusksnowing/SnowBlog">GitHub</a> 开源，欢迎点赞提建议哦~~</h4>
+    <h4>性格还算开朗，热衷技术，喜欢听歌，也爱摄影，这个博客已经在 <a href="https://github.com/Dusksnowing/SnowBlog">GitHub</a> 开源，欢迎点赞提建议哦~~</h4>
   </div>
 </template>
 

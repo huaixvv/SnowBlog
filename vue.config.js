@@ -11,5 +11,15 @@ module.exports = {
         'views': '@/views',
       }
     }
-  }
+  },
+
+  // pwa:{
+  //   iconPaths:{
+  //    favicon32: './public/title.png',
+  //    favicon16: './public/title.png',
+  //    appleTouchIcon: './public/title.png',
+  //    maskIcon: 'favicon.ico',
+  //    msTileImage: 'favicon.ico'
+  //   }
+  //  },
 }

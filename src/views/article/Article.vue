@@ -31,13 +31,8 @@
         blog:{},
       }
     },
-    created(){
-      this.value = Base64.decode(get())
-    },
-    mounted(){
-      console.log(111);
-    },
-    activated: function(){
+    
+    activated(){
       this.blog = {}
       this.blogId = this.$route.params.blogId
       getBlogById(this.blogId).then(res => {
