@@ -40,7 +40,7 @@
       getPlayDetail(this.playdesc.id).then(res => {
         const songslist = res.data.playlist.tracks
         for (let songdata of songslist) {
-          console.log(songdata);
+          // console.log(songdata);
           const song = {}
           song.id = songdata.id
           song.name = songdata.name
@@ -57,7 +57,7 @@
     },
     methods:{
       test(){
-        console.log(this.playdesc);
+        // console.log(this.playdesc);
     }
     },
     components: {

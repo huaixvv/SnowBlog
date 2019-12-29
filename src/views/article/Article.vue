@@ -19,8 +19,6 @@
 </template>
 
 <script>
-  import { get } from "./value";
-  import { Base64 } from 'js-base64';
   import { getBlogById } from "network/blog";
 
   export default {
@@ -39,7 +37,7 @@
         this.blog = res.data.data
         this.blog.lastEditTime = res.data.data.lastEditTime.toString().substr(0,10)
         this.blog.createTime = res.data.data.createTime.toString().substr(0,10)
-        console.log(this.blog);
+        // console.log(this.blog);
         })
 
     },

@@ -12,14 +12,13 @@ module.exports = {
       }
     }
   },
-
-  // pwa:{
-  //   iconPaths:{
-  //    favicon32: './public/title.png',
-  //    favicon16: './public/title.png',
-  //    appleTouchIcon: './public/title.png',
-  //    maskIcon: 'favicon.ico',
-  //    msTileImage: 'favicon.ico'
-  //   }
-  //  },
+  pwa: {
+    iconPaths: {
+      favicon32: 'assets/img/favicon.ico',
+      favicon16: 'assets/img/favicon.ico',
+      appleTouchIcon: 'assets/img/favicon.ico',
+      maskIcon: 'assets/img/favicon.ico',
+      msTileImage: 'assets/img/favicon.ico'
+    }
+  }
 }

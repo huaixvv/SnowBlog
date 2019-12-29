@@ -54,9 +54,9 @@
     },
     methods: {
       open(){
-        console.log(open);
+        // console.log(open);
       },
-      cataClick(index){
+      cataClick(index, cataName){
         getBlogListByCata(index, 1).then(res => {
           if (res.data.code === 40000) {
             this.$message({
@@ -66,16 +66,22 @@
             })
           }else{
             this.blogs = res.data.data.list
+            if (index !== 0) {
+              for (const blog of this.blogs) {
+                blog.cataName = cataName
+              }  
+            }
+            // console.log(this.blogs);
           }
         })
       },
       loadBlog(){
-        console.log(`jia zai blog`);
+        // console.log(`jia zai blog`);
       }
     },
     created(){
       getAllBlog(1).then(res => {
-        console.log(res);
+        // console.log(res);
         this.blogs = res.data.data.list
         // console.log(this.blogs);
       })

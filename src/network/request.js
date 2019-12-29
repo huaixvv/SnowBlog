@@ -36,7 +36,7 @@ export function blogrequest(config) {
   
   //创建axios实例
   const instance = axios.create({
-    baseURL: "http://127.0.0.1:8081",
+    baseURL: "http://121.36.41.153:10001",
     timeout: 5000
   })
 

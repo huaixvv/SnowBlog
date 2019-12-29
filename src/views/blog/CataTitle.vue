@@ -16,7 +16,7 @@
     },
     methods:{
       cataClick(index){
-        this.$emit('cataClick', index)
+        this.$emit('cataClick', index, this.catagory[index])
       }
     },
     components: {

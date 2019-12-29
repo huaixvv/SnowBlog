@@ -28,7 +28,7 @@
     },
     methods:{
       toDetail(playlist){
-        console.log('dian ji le');
+        // console.log('dian ji le');
         let strPlaylist = JSON.stringify(playlist)
         this.$store.commit('initPalylist', strPlaylist)
         this.$router.push('/album/detail')

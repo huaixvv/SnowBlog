@@ -49,13 +49,8 @@
     },
     created(){
       getPlayList().then(res => {
-        // for (const playlist of res.data.playlists) {
-        //   setTimeout(() => {
-        //   this.playlists.push(playlist)
-        // }, 1000);
-        // }
         this.playlists = res.data.playlists
-        console.log(res);
+        // console.log(res);
       })
     },
     mounted(){
@@ -68,14 +63,12 @@
         this.cats = this.catslist[index]
       },
       getCats(index){
-        console.log(`${this.titleIndex}----${this.catsIndex}`);
+        // console.log(`${this.titleIndex}----${this.catsIndex}`);
         if (index != this.catsIndex) {
           this.playlists = []
           this.offset = 0
           let catName = this.catslist[this.titleIndex][index]
-          console.log(catName);
           getPlayList(catName).then(res => {
-          console.log(res);
           this.playlists = res.data.playlists
         })
         }
@@ -85,7 +78,6 @@
       },
 
       loadPlaylist(){
-        console.log(`loadplaylist`);
         let catName = this.catslist[this.titleIndex][this.catsIndex]
         getPlayList(catName,this.offset+=30, 30).then(res => {
           for (const item of res.data.playlists) {
@@ -93,20 +85,7 @@
           }
           // console.log(this.playlists);
         })
-      },
-
-//       handleScroll(e){
-       
-//         if(scrollTop+windowHeight==(scrollHeight)){
-//           console.log(`${scrollTop}---${windowHeight}---${scrollHeight}`);
-//             //写后台加载数据的函数
-// //          	console.log("距顶部"+scrollTop+"可视区高度"+windowHeight+"滚动条总高度"+scrollHeight);
-// //             alert("距顶部"+scrollTop+"可视区高度"+windowHeight+"滚动条总高度"+scrollHeight);
-        
-//        }
-//     }
-        
-      
+      },  
     },
     components:{
       AlbumItem

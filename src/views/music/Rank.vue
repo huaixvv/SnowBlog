@@ -55,7 +55,7 @@
     created(){
       this.loading = true
       getTopSong(1).then(res => {
-        console.log(res);
+        // console.log(res);
         const songdatas = res.data.playlist.tracks
         // console.log(songdatas);
         for (let songdata of songdatas) {
@@ -86,7 +86,7 @@
         this.loading = true
         this.dialogTableVisible = false
         getTopSong(this.topNameIdx[index]).then(res => {
-          console.log(res);
+          // console.log(res);
           const songdatas = res.data.playlist.tracks
           for (let songdata of songdatas) {
             let song = {}

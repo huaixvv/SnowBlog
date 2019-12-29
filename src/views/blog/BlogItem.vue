@@ -66,4 +66,8 @@ h3{
    font-weight: 500;
    color: var(--text-color-light)
  }
+
+ .title:hover{
+   color: var(--text-color-hover)
+ }
 </style>

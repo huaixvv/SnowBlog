@@ -10,11 +10,6 @@
         <div class="music-album">{{song.albumName}}</div>
         <div class="music-time">{{song.duration}}</div>
       </div>  
-
-    <!-- <keep-alive>
-      <audio :src="mp3url" ref="myaudio" @ended="ended"></audio>
-    </keep-alive> -->
-      <!-- <div class="music-item"></div> -->
     </div>
 </template>
 
@@ -52,19 +47,27 @@
        * 下载音乐
        */
       download(songid,fileName){
+        // this.$message({
+        //   message: '下载中, 请稍等....',
+        //   center: true,
+        //   offset:150,
+        // });
+
+        this.$notify({
+              // title: 'ヘ(>_<ヘ)',
+              message: '下载中, 请稍等....',
+              offset: 80,
+              type:'info'
+            });
         getSongUrl(songid).then(res => {
           if(res.data.data[0].url){
             this.downloadUrl = res.data.data[0].url
-            console.log(this.downloadUrl);
+            // console.log(this.downloadUrl);
             axios({
               method: 'get',
               url: this.downloadUrl,
               responseType: 'blob'
             }).then(res => {
-              if (!res) {
-                console.log(`数据为空`);
-              }
-                console.log(res);
                 download(res.data, fileName, 'audio/mpeg')
             })
           }else{
