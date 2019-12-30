@@ -1,6 +1,6 @@
 module.exports = {
-  configureWebpack: {
 
+  configureWebpack: {
     //配置别名
     resolve: {
       alias: {
@@ -20,5 +20,7 @@ module.exports = {
       maskIcon: 'assets/img/favicon.ico',
       msTileImage: 'assets/img/favicon.ico'
     }
-  }
+  },
+
+  
 }

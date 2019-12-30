@@ -10,7 +10,8 @@
             @playSong="playSong"
             @pauseSong="pauseSong"
             @nextSong="nextSong"
-            @lastSong="lastSong"/>
+            @lastSong="lastSong"
+            ref="player"/>
 
     <!-- <foot /> -->
     <audio :src="mp3url" ref="myaudio" @ended="ended"></audio>
@@ -58,6 +59,7 @@ export default {
       // console.log(this.song);
       //解决this指向问题
       let _self = self
+      _self.$refs.player.isPlaying = true
       //使用all发送请求
       Axios.all([ getAlbumDetail(albumid), getSongUrl(songid)]).then(
         Axios.spread((albumdata, res) => {
